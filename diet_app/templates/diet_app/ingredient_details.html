@@ -1,0 +1,12 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %}{{ ingredient|upper }}{% endblock %}
+
+{% block content %}
+                <h2>{{ ingredient|upper }}</h2>
+                <ul>
+                    <li>Typ składnika: {{ ingredient.get_nutrient_display }}</li>
+                    <li>Indeks glikemiczny: {{ ingredient.get_glycemic_index_display }}</li>
+                </ul>
+
+{% endblock %}

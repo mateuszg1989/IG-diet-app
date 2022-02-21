@@ -1,0 +1,17 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %}Przepisy{% endblock %}
+
+{% block content %}
+                <h2>Lista przepisów:</h2>
+                <ul>
+                    {% for recipe in recipes %}
+                        <li>
+                       <a href="/recipe/{{recipe.id}}/">{{ recipe.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+    <p></p>
+    <button type="button" class="btn btn-primary btn-lg"><a href="/add_recipe">Dodaj nowy przepis</a></button>
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'menu' %}">Powrót</a></button>
+{% endblock %}

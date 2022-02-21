@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>{% block title %}{% endblock %} | IG_diet_app</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+
+
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Zaloguj">
+</form>
+</body>
+</html>

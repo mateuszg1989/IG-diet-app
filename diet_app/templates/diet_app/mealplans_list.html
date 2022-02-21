@@ -1,0 +1,16 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %}Meal plans{% endblock %}
+
+{% block content %}
+                <h2>Dostępne meal plany:</h2>
+                <ul>
+                    {% for mealplan in mealplans %}
+                      <li><a href="/mealplan_details/{{mealplan.id}}/"> {{ mealplan}}</a> </li>
+                        </li>
+                    {% endfor %}
+                </ul>
+    <p></p>
+    <button type="button" class="btn btn-primary btn-lg"><a href="/add_mealplan">Dodaj nowy mealplan</a></button>
+      <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'menu' %}">Powrót</a></button>
+{% endblock %}

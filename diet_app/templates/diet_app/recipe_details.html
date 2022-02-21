@@ -1,0 +1,28 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %}{{ recipe }}{% endblock %}
+
+{% block content %}
+                <h2>{{ recipe.title |upper}}</h2>
+    <ul>
+                <li><b>Czas przygotowania</b>: {{ recipe.cooking_time }} minut</li>
+                <p><li><b>Poziom trudności</b>: {{ recipe.get_difficulty_level_display }}</li></p>
+                <li><b>Składniki</b>:</li>
+                <ul>
+                {% for skladnik in recipe.ingredientrecipe_set.all %}
+                <li>{{ skladnik }} : {{ skladnik.grammage }} gram ({{ skladnik.ingredient.get_glycemic_index_display }})</li>
+                {% endfor %}
+                </ul>
+                <p><li><b>Sposób przygotowania</b>: {{ recipe.description }}</li></p>
+
+</ul>
+   <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'add-ingredient-recipe' id=recipe.id %}">
+        Dodaj składnik do przepisu</a></button>
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'update-recipe' pk=recipe.pk %}">
+        Edytuj przepis</a></button>
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-recipe' pk=recipe.pk %}">
+        Usuń przepis</a></button>
+
+
+{% endblock %}
+

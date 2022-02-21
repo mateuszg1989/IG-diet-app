@@ -1,0 +1,12 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %} Dodaj składnik do bazy {% endblock %}
+
+{% block content %}
+    <h2>Dodaj składnik</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Dodaj">
+    </form>
+{% endblock %}

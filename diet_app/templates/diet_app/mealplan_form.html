@@ -1,0 +1,12 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %} Stwórz nowy meal plan {% endblock %}
+
+{% block content %}
+    <h2>Stwórz nowy meal plan</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Dodaj">
+    </form>
+{% endblock %}

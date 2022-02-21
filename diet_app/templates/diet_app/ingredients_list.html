@@ -1,0 +1,22 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %}Składniki{% endblock %}
+
+{% block content %}
+                <h2>Lista składników w bazie:</h2>
+                <ul>
+                    {% for ingredient in ingredients %}
+                        <li>
+                       <a href="/ingredient_details/{{ingredient.id}}/">{{ ingredient.name|upper }}</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'delete-ingredient' pk=ingredient.id %}">usuń</a>
+                                <a href="{% url 'update-ingredient' pk=ingredient.id %}">edytuj</a>
+                            {% else %}
+                            <p></p>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+      <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'menu' %}">Powrót</a></button>
+{% endblock %}

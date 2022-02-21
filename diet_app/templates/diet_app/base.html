@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+        <html>
+
+            <head>
+                <meta charset="utf-8">
+                <title>{% block title %}{% endblock %} | IG_diet_app</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+
+            </head>
+            <body>
+
+                <h1><center> IG_diet_app</center></h1>
+            {% block content %} {% endblock %}
+                <footer>
+                {% if user.is_authenticated %}
+                    <p>Zalogowany jako: {{ user }}</p>
+                    <a href="/logout/">Wyloguj się</a>
+                {% else %}
+                    <a href="/login/">Zaloguj się</a>
+                {% endif %}
+            </footer>
+            </body>
+        </html>

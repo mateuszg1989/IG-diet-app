@@ -1,0 +1,13 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %} Usuń meal plan {% endblock %}
+
+{% block content %}
+    <h2>Usuń meal plan</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Aby potwierdzić usunięcie meal planu {{ mealplan.name }} naciśnij przycisk USUŃ</p>
+        <input type="submit" value="Usuń">
+    </form>
+{% endblock %}

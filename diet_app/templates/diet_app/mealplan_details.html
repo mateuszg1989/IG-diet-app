@@ -1,0 +1,16 @@
+{% extends 'diet_app/base.html' %}
+{% block title %}{{ mealplan|upper }}{% endblock %}
+{% block content %}
+
+                <h2>{{ mealplan|upper }}</h2>
+                <ul> <p>Posiłki:</p>
+                {% for recipe in recipes %}
+                <li><a href="/recipe/{{recipe.id}}/">{{ recipe.title }} </a></li>
+                {% endfor %}
+                </ul>
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'add-recipemealplan' id=mealplan.id %}">
+        Dodaj posiłek do meal planu</a></button>
+    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-mealplan' pk=mealplan.pk %}">
+        Usuń meal plan</a></button>
+
+{% endblock %}

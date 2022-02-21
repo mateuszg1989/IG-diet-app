@@ -1,0 +1,16 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %}{{ cuisine|upper }}{% endblock %}
+
+{% block content %}
+                <h2>{{ cuisine|upper }}</h2>
+                <ul> <p>Przepisy:</p>
+                {% for recipe in recipes %}
+                <li><a href="/recipe/{{recipe.id}}/">{{ recipe.title }}</a></li>
+                {% endfor %}
+                </ul>
+
+      <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'cuisine-list' %}">
+        Powrót</a></button>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'diet_app/base.html' %}
+
+{% block title %} Dodaj składniki do przepisu {% endblock %}
+
+{% block content %}
+    <h2>Dodaj składniki do przepisu</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Dodaj">
+    </form>
+{% endblock %}
