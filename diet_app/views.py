@@ -2,10 +2,12 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
 from diet_app.models import Recipe, Ingredient, IngredientRecipe, MealPlan, Cuisine, RecipeMealPlan
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from diet_app.forms import LoginForm, RegisterForm, RecipeAddForm, AddIngredientToRecipeModelForm, AddRecipeToMealPlanModelFormV2
+from diet_app.forms import LoginForm, RegisterForm, RecipeAddForm, AddIngredientToRecipeModelForm, \
+    AddRecipeToMealPlanModelFormV2
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import PermissionRequiredMixin
+
 
 # Create your views here.
 
@@ -167,7 +169,6 @@ class AddIngredientToRecipe(View):
 # class DeleteIngredientFromRecipe(DeleteView):
 #     model = IngredientRecipe
 #     success_url = '/recipe_list'
-
 
 
 class LoginView(View):

@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from diet_app.views import MainPageView, RecipesListView, RecipeDetailsView, RecipeAddView, MenuView, RecipeDeleteView, RecipeUpdateView
+from diet_app.views import MainPageView, RecipesListView, RecipeDetailsView, RecipeAddView, MenuView, RecipeDeleteView,\
+    RecipeUpdateView
 from diet_app.views import LoginView, LogoutView, AddUserView, CuisineListView, CuisineDetailsView, MealPlanAddView
 from diet_app.views import MealPlanListView, MealPlanDetailsView, AddIngredientToRecipe, AddRecipeToMealPlanV2
-from diet_app.views import IngredientsListView, IngredientDetailsView, IngredientAddView, IngredientUpdateView, IngredientDeleteView
+from diet_app.views import IngredientsListView, IngredientDetailsView, IngredientAddView, IngredientUpdateView,\
+    IngredientDeleteView
 from diet_app.views import MealPlanDeleteView
 
 
@@ -37,8 +39,8 @@ urlpatterns = [
     path('add_recipe/', RecipeAddView.as_view()),
     path('update_recipe/<int:pk>/', RecipeUpdateView.as_view(), name='update-recipe'),
     path('delete_recipe/<int:pk>/', RecipeDeleteView.as_view(), name='delete-recipe'),
-    path('add_mealplan/', MealPlanAddView.as_view()),
-    path('add_ingredient/', IngredientAddView.as_view()),
+    path('add_mealplan/', MealPlanAddView.as_view(), name='add-mealplan'),
+    path('add_ingredient/', IngredientAddView.as_view(), name='add-ingredient'),
     path('update_ingredient/<int:pk>/', IngredientUpdateView.as_view(), name='update-ingredient'),
     path('delete_ingredient/<int:pk>/', IngredientDeleteView.as_view(), name='delete-ingredient'),
     path('delete_mealplan/<int:pk>/', MealPlanDeleteView.as_view(), name='delete-mealplan'),
