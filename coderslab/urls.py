@@ -27,7 +27,7 @@ from diet_app.views import MealPlanDeleteView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('menu/', MenuView.as_view(), name='menu'),
-    path('', MainPageView.as_view()),
+    path('', MainPageView.as_view(), name='main'),
     path('recipe_list/', RecipesListView.as_view(), name='recipe-list'),
     path('cuisine_list/', CuisineListView.as_view(), name='cuisine-list'),
     path('ingredients_list/', IngredientsListView.as_view()),
@@ -36,7 +36,7 @@ urlpatterns = [
     path('ingredient_details/<int:id>/', IngredientDetailsView.as_view()),
     path('mealplan_details/<int:id>/', MealPlanDetailsView.as_view()),
     path('recipe/<int:id>/', RecipeDetailsView.as_view()),
-    path('add_recipe/', RecipeAddView.as_view()),
+    path('add_recipe/', RecipeAddView.as_view(), name='add-recipe'),
     path('update_recipe/<int:pk>/', RecipeUpdateView.as_view(), name='update-recipe'),
     path('delete_recipe/<int:pk>/', RecipeDeleteView.as_view(), name='delete-recipe'),
     path('add_mealplan/', MealPlanAddView.as_view(), name='add-mealplan'),

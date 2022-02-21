@@ -5,6 +5,11 @@ from django.urls import reverse
 from diet_app.models import Ingredient, Recipe, MealPlan, RecipeMealPlan, IngredientRecipe
 
 
+def test_main(client):
+    url = reverse('main')
+    response = client.get(url)
+    assert response.status_code == 200
+
 
 def test_menu(client):
     url = reverse('menu')
@@ -25,7 +30,6 @@ def test_add_ingredient(client):
 
 
 
-
 @pytest.mark.django_db
 def test_add_meal_plan(client):
     dct = {
@@ -34,4 +38,9 @@ def test_add_meal_plan(client):
     }
     url = reverse('add-mealplan')
     response = client.post(url, dct)
+    assert response.status_code == 302
+
+
+
+
 
