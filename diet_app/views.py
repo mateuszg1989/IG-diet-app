@@ -6,7 +6,7 @@ from diet_app.forms import LoginForm, RegisterForm, RecipeAddForm, AddIngredient
     AddRecipeToMealPlanModelFormV2
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 
 # Create your views here.
@@ -66,23 +66,20 @@ class IngredientDetailsView(View):
         return render(request, 'diet_app/ingredient_details.html', {'ingredient': ingredient})
 
 
-class IngredientAddView(PermissionRequiredMixin, CreateView):
-    permission_required = 'diet_app.add_ingredient'
+class IngredientAddView(LoginRequiredMixin, CreateView):
     model = Ingredient
     fields = '__all__'
     success_url = '/ingredients_list'
 
 
-class IngredientUpdateView(PermissionRequiredMixin, UpdateView):
-    permission_required = 'diet_app.add_ingredient'
+class IngredientUpdateView(LoginRequiredMixin, UpdateView):
     model = Ingredient
     fields = '__all__'
     template_name_suffix = '_update_form'
     success_url = '/ingredients_list'
 
 
-class IngredientDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = 'diet_app.add_ingredient'
+class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = Ingredient
     success_url = '/ingredients_list'
 
@@ -125,13 +122,13 @@ class MealPlanDeleteView(DeleteView):
 
 class AddRecipeToMealPlanV2(View):
     def get(self, request, id):
-        form = AddRecipeToMealPlanModelFormV2
         meal_plan = MealPlan.objects.get(id=id)
+        form = AddRecipeToMealPlanModelFormV2(meal_plan)
         return render(request, 'diet_app/add_recipe_to_mealplan.html', {'form': form})
 
     def post(self, request, id):
-        form = AddRecipeToMealPlanModelFormV2(request.POST)
         meal_plan = MealPlan.objects.get(id=id)
+        form = AddRecipeToMealPlanModelFormV2(meal_plan,request.POST)
         if form.is_valid():
             new_recipe = form.save(commit=False)
             new_recipe.meal_plan = meal_plan
@@ -210,7 +207,7 @@ class AddUserView(View):
             user_first_name = form.cleaned_data['first_name']
             user_last_name = form.cleaned_data['last_name']
             user_email = form.cleaned_data['email']
-            User.objects.create_superuser(
+            User.objects.create_user(
                 username=user_login,
                 password=user_password,
                 first_name=user_first_name,

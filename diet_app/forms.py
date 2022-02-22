@@ -56,12 +56,15 @@ class RegisterForm(forms.Form):
 
 class AddRecipeToMealPlanModelFormV2(forms.ModelForm):
     """Recipe to meal plan add form"""
+    def __init__(self, mealplan, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.mealplan = mealplan
     class Meta:
         model = RecipeMealPlan
-        fields = '__all__' ##jak jest exclude = ['meal_plan] to wtedy oczywiscie nie dziala ponizsza funkcja, inne pola z modelu nie dzialaja, moze da sie jakos ukryc to pole wyboru w formularzu
+        exclude =['meal_plan']
 
     def clean(self):
-        amount = super().clean()
-        count = amount['meal_plan'].recipemealplan_set.count()
+        super().clean()
+        count = self.mealplan.recipemealplan_set.count()
         if count >= 6:
             raise ValidationError('Meal plan może mieć maksymalnie 6 posiłków')
