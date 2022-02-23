@@ -86,7 +86,14 @@ def cuisine():
     cus = Cuisine.objects.create(name='moja kuchnia', )
     return cus
 
+
 @pytest.fixture
 def example_ingredient():
     ing = Ingredient.objects.create(name='gruszka', nutrient=1, glycemic_index=2)
     return ing
+
+
+@pytest.fixture()
+def example_recipe():
+    rec = Recipe.objects.create(title='przepis', cooking_time=10, difficulty_level=2, description='bla, bla, bla')
+    return rec

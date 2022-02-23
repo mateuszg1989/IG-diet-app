@@ -43,6 +43,20 @@ def test_add_meal_plan(client):
     url = reverse('add-mealplan')
     response = client.post(url, dct)
     assert response.status_code == 302
+    assert MealPlan.objects.get(**dct)
+
+
+@pytest.mark.django_db
+def test_add_recipe(client, example_recipe):
+    dct = {
+        'title': 'przepis',
+        'cooking_time': 10,
+        'difficulty_level': 2,
+        'description': 'bla, bla, bla'
+    }
+    url = reverse('add-recipe')
+    response = client.post(url, dct)
+    assert Recipe.objects.get(**dct)
 
 
 @pytest.mark.django_db
@@ -92,6 +106,13 @@ def test_cuisine_details_view(client, cuisine):
 
 
 @pytest.mark.django_db
+def test_recipe_details_view(client, example_recipe):
+    url = reverse('recipe-details', kwargs={'id': example_recipe.id})
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
 def test_ingredient_view(client, example_ingredient):
     url = reverse('ingredient-details', kwargs={'id': example_ingredient.id})
     response = client.get(url)
@@ -117,4 +138,25 @@ def test_add_user_view(client):
     url = reverse('add-user')
     response = client.get(url)
     assert response.status_code == 200
+
+
+
+
+
+# @pytest.mark.django_db
+# def test_add_recipe(client, example_recipe):
+#     response = client.post('/add_recipe/', {
+#         'title': 'przepis',
+#         'cooking_time': '10',
+#         'difficulty_level': '2',
+#         'description': 'bla bla bla',
+#         'cuisine': 'kuchnia polska'
+#     })
+#     assert response.status_code == 200
+#     assert Recipe.objects.get(
+#         title='przepis',
+#         cooking_time=10,
+#         difficulty_level=2,
+#         description='bla bla bla'
+#     )
 
