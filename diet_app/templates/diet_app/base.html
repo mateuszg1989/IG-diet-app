@@ -7,7 +7,8 @@
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
 
             </head>
-            <body>
+            {% load static %}
+            <body style="background-image:url('{% static 'diet_app/bgrimg.jpg' %}');">
 
                 <h1><center> IG_diet_app</center></h1>
             {% block content %} {% endblock %}
