@@ -6,7 +6,7 @@ from diet_app.forms import LoginForm, RegisterForm, RecipeAddForm, AddIngredient
     AddRecipeToMealPlanModelFormV2
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 class MainPageView(View):
 
     def get(self, request):
-        return render(request, 'diet_app/base.html')
+        return render(request, 'diet_app/index.html')
 
 
 class MenuView(View):
@@ -91,36 +91,36 @@ class RecipeDetailsView(View):
         return render(request, 'diet_app/recipe_details.html', {'recipe': recipe, 'ingredients': ingredients})
 
 
-class RecipeAddView(CreateView):
+class RecipeAddView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeAddForm
     success_url = '/recipe_list'
 
 
-class RecipeUpdateView(UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
     fields = ['title', 'cooking_time', 'difficulty_level', 'description', 'cuisine']
     template_name_suffix = '_update_form'
     success_url = '/recipe_list'
 
 
-class RecipeDeleteView(DeleteView):
+class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
     success_url = '/recipe_list'
 
 
-class MealPlanAddView(CreateView):
+class MealPlanAddView(LoginRequiredMixin, CreateView):
     model = MealPlan
     fields = '__all__'
     success_url = '/mealplan_list'
 
 
-class MealPlanDeleteView(DeleteView):
+class MealPlanDeleteView(LoginRequiredMixin, DeleteView):
     model = MealPlan
     success_url = '/mealplan_list'
 
 
-class AddRecipeToMealPlanV2(View):
+class AddRecipeToMealPlanV2(LoginRequiredMixin, View):
     def get(self, request, id):
         meal_plan = MealPlan.objects.get(id=id)
         form = AddRecipeToMealPlanModelFormV2(meal_plan)
@@ -185,7 +185,7 @@ class LoginView(View):
                 login(request, user)
                 return redirect('/menu/')
         else:
-            render(request, 'diet_app/login.html', {'form': form})
+            return render(request, 'diet_app/login.html', {'form': form})
 
 
 class LogoutView(View):

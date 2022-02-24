@@ -3,14 +3,19 @@
 {% block content %}
                 <h2>{{ mealplan|upper }}</h2>
                 <ul> <p>Posiłki:</p>
-                {% for recipe in mealplan.recipemealplan_set.all %}
-                    <li>{{ recipe.get_meal_display}}: {{ recipe }}</li>
-                {% endfor %}
+                {% for recipemealplan in mealplan.recipemealplan_set.all %}
+        <li>{{ recipemealplan.get_meal_display}}: <a href="/recipe/{{ recipemealplan.recipe.id }}/">{{ recipemealplan }}</a></li>
+    {% endfor %}
                 </ul>
-    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'add-recipemealplan' id=mealplan.id %}">
+    {% if user.is_authenticated %}
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'add-recipemealplan' id=mealplan.id %}">
         Dodaj posiłek do meal planu</a></button>
-    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-mealplan' pk=mealplan.pk %}">
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-mealplan' pk=mealplan.pk %}">
         Usuń meal plan</a></button>
+    {% else %}
+        <p></p>
+    {% endif %}
+
 <button type="button" class="btn btn-primary btn-lg"><a href="/mealplan_list">Powrót</a></button>
 
 {% endblock %}

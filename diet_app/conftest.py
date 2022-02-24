@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.test import Client as WebClient
 
-from diet_app.models import Ingredient, Recipe, Cuisine, MealPlan, RecipeMealPlan
+from diet_app.models import Ingredient, Recipe, Cuisine, MealPlan, RecipeMealPlan, IngredientRecipe
 
 
 
@@ -97,3 +97,23 @@ def example_ingredient():
 def example_recipe():
     rec = Recipe.objects.create(title='przepis', cooking_time=10, difficulty_level=2, description='bla, bla, bla')
     return rec
+
+
+@pytest.fixture
+def example_mealplan():
+    mp = MealPlan.objects.create(name='mp1', amount=5)
+    return mp
+
+
+@pytest.fixture
+def example_ingredient_recipe(example_recipe, example_ingredient):
+    ingrec = IngredientRecipe.objects.create(ingredient='ingred', recipe='reci', grammage=20)
+    return ingrec
+
+
+@pytest.fixture
+def new_user():
+    x = User(username='mateusz')
+    x.set_password('gawrys')
+    x.save()
+    return x

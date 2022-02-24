@@ -16,13 +16,16 @@
                 <p><li><b>Sposób przygotowania</b>: {{ recipe.description }}</li></p>
 
 </ul>
-   <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'add-ingredient-recipe' id=recipe.id %}">
+    {% if user.is_authenticated %}
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'add-ingredient-recipe' id=recipe.id %}">
         Dodaj składnik do przepisu</a></button>
-    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'update-recipe' pk=recipe.pk %}">
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'update-recipe' pk=recipe.pk %}">
         Edytuj przepis</a></button>
-    <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-recipe' pk=recipe.pk %}">
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-recipe' pk=recipe.pk %}">
         Usuń przepis</a></button>
-
+    {% else %}
+        <p></p>
+        {% endif %}
 
 {% endblock %}
 
