@@ -1,7 +1,7 @@
 import django.forms as forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from diet_app.models import Cuisine, DIFFICULTY_LEVELS, MealPlan, Recipe, MEALS, RecipeMealPlan, IngredientRecipe
+from diet_app.models import Recipe, RecipeMealPlan, IngredientRecipe
 
 
 class LoginForm(forms.Form):
@@ -21,13 +21,6 @@ class AddIngredientToRecipeModelForm(forms.ModelForm):
     class Meta:
         model = IngredientRecipe
         exclude = ['recipe']
-
-    # def clean(self):
-    #     """function created to avoid adding the same product to recipe more than once"""
-    #     amount = super().clean()
-    #     count = amount['ingredient'].ingredientrecipe_set.count()
-    #     if count != 0:
-    #         raise ValidationError('Ten składnik został już dodany do tego przepisu!')
 
 
 def validate_username_is_not_taken(value):

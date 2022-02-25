@@ -1,6 +1,6 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from django.views import View
-from diet_app.models import Recipe, Ingredient, IngredientRecipe, MealPlan, Cuisine, RecipeMealPlan
+from diet_app.models import Recipe, Ingredient, MealPlan, Cuisine
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from diet_app.forms import LoginForm, RegisterForm, RecipeAddForm, AddIngredientToRecipeModelForm, \
     AddRecipeToMealPlanModelFormV2
@@ -128,7 +128,7 @@ class AddRecipeToMealPlanV2(LoginRequiredMixin, View):
 
     def post(self, request, id):
         meal_plan = MealPlan.objects.get(id=id)
-        form = AddRecipeToMealPlanModelFormV2(meal_plan,request.POST)
+        form = AddRecipeToMealPlanModelFormV2(meal_plan, request.POST)
         if form.is_valid():
             new_recipe = form.save(commit=False)
             new_recipe.meal_plan = meal_plan
@@ -154,18 +154,6 @@ class AddIngredientToRecipe(View):
             return redirect(f'/recipe/{id}/')
         else:
             return render(request, 'diet_app/ingredientrecipe_form.html', {'form': form})
-
-
-# class UpdateIngredientInRecipe(UpdateView):
-#     model = IngredientRecipe
-#     fields = ['ingredient', 'grammage']
-#     template_name_suffix = '_update_form'
-#     success_url = '/recipe_list'
-#
-#
-# class DeleteIngredientFromRecipe(DeleteView):
-#     model = IngredientRecipe
-#     success_url = '/recipe_list'
 
 
 class LoginView(View):

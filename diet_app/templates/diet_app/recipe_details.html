@@ -23,8 +23,11 @@
         Edytuj przepis</a></button>
         <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'delete-recipe' pk=recipe.pk %}">
         Usuń przepis</a></button>
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'recipe-list' %}">
+        Powrót do listy przepisów</a></button>
     {% else %}
-        <p></p>
+        <button type="button" class="btn btn-primary btn-lg"><a href="{% url 'recipe-list' %}">
+        Powrót do listy przepisów</a></button>
         {% endif %}
 
 {% endblock %}

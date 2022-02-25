@@ -2,7 +2,7 @@ import pytest
 
 from django.urls import reverse
 
-from diet_app.models import Ingredient, Recipe, MealPlan, RecipeMealPlan, IngredientRecipe
+from diet_app.models import Ingredient, Recipe, MealPlan, RecipeMealPlan, IngredientRecipe, Cuisine
 
 
 def test_main(client):
@@ -269,18 +269,6 @@ def test_add_recipe_mealplan2(client, example_mealplan):
     url = reverse('add-recipemealplan', kwargs={'id': example_mealplan.id})
     response = client.get(url)
     assert response.status_code == 302
-
-
-# @pytest.mark.django_db
-# def test_ingredient_update_view(client, example_ingredient, user):
-#     client.force_login(user)
-#     url = reverse('update-ingredient', kwargs={'id': example_ingredient.id})
-#     response = client.get(url)
-#     obj = Ingredient.objects.get(example_ingredient.id)
-#     obj.name = 'else'
-#     obj.save()
-#     assert response.status_code == 302
-
 
 
 @pytest.mark.django_db
