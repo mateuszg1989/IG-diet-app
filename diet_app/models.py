@@ -82,9 +82,9 @@ class RecipeMealPlan(models.Model):
 
 
 class MealPlan(models.Model):
-    """Meal plan for specific day. Limitation: min. 4, max. 6 dishes per mealplan."""
+    """Meal plan for specific day. Limitation: min. 1, max. 6 dishes per mealplan."""
     name = models.CharField(max_length=50)
-    amount = models.IntegerField(validators=[MinValueValidator(4), MaxValueValidator(6)])
+    amount = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(6)])
 
     def __str__(self):
         return self.name

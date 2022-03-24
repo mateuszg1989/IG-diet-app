@@ -1,7 +1,7 @@
 import django.forms as forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from diet_app.models import Cuisine, DIFFICULTY_LEVELS, MealPlan, Recipe, MEALS, RecipeMealPlan, IngredientRecipe
+from diet_app.models import Recipe, RecipeMealPlan, IngredientRecipe
 
 
 class LoginForm(forms.Form):
@@ -21,13 +21,6 @@ class AddIngredientToRecipeModelForm(forms.ModelForm):
     class Meta:
         model = IngredientRecipe
         exclude = ['recipe']
-
-    # def clean(self):
-    #     """function created to avoid adding the same product to recipe more than once"""
-    #     amount = super().clean()
-    #     count = amount['ingredient'].ingredientrecipe_set.count()
-    #     if count != 0:
-    #         raise ValidationError('Ten składnik został już dodany do tego przepisu!')
 
 
 def validate_username_is_not_taken(value):
@@ -56,12 +49,19 @@ class RegisterForm(forms.Form):
 
 class AddRecipeToMealPlanModelFormV2(forms.ModelForm):
     """Recipe to meal plan add form"""
+    def __init__(self, mealplan, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.mealplan = mealplan
     class Meta:
         model = RecipeMealPlan
-        fields = '__all__' ##jak jest exclude = ['meal_plan] to wtedy oczywiscie nie dziala ponizsza funkcja, inne pola z modelu nie dzialaja, moze da sie jakos ukryc to pole wyboru w formularzu
+        exclude =['meal_plan']
 
     def clean(self):
-        amount = super().clean()
-        count = amount['meal_plan'].recipemealplan_set.count()
+        super().clean()
+        count = self.mealplan.recipemealplan_set.count()
         if count >= 6:
             raise ValidationError('Meal plan może mieć maksymalnie 6 posiłków')
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100, label='szukaj')
