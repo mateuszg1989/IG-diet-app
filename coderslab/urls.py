@@ -21,7 +21,7 @@ from diet_app.views import LoginView, LogoutView, AddUserView, CuisineListView, 
 from diet_app.views import MealPlanListView, MealPlanDetailsView, AddIngredientToRecipe, AddRecipeToMealPlanV2
 from diet_app.views import IngredientsListView, IngredientDetailsView, IngredientAddView, IngredientUpdateView,\
     IngredientDeleteView
-from diet_app.views import MealPlanDeleteView
+from diet_app.views import MealPlanDeleteView, SearchView
 
 
 urlpatterns = [
@@ -49,4 +49,5 @@ urlpatterns = [
     path('add_user/', AddUserView.as_view(), name='add-user'),
     path('add_ingrecipe/<int:id>', AddIngredientToRecipe.as_view(), name='add-ingredient-recipe'),
     path('add_recipemealplan/<int:id>/', AddRecipeToMealPlanV2.as_view(), name='add-recipemealplan'),
+    path('search/', SearchView.as_view(), name='search'),
 ]

@@ -3,7 +3,7 @@ from django.views import View
 from diet_app.models import Recipe, Ingredient, MealPlan, Cuisine
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from diet_app.forms import LoginForm, RegisterForm, RecipeAddForm, AddIngredientToRecipeModelForm, \
-    AddRecipeToMealPlanModelFormV2
+    AddRecipeToMealPlanModelFormV2, SearchForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -205,3 +205,21 @@ class AddUserView(View):
             return redirect('/login')
         else:
             return render(request, 'diet_app/add_user.html', {'form': form})
+
+
+class SearchView(View):
+    def get(self, request):
+        form = SearchForm()
+        return render(request, 'diet_app/search.html', {'form': form})
+
+    def post(self, request):
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            recipes = Recipe.objects.filter(title__icontains=form.cleaned_data['query'])
+            return render(
+                request,
+                'diet_app/search.html',
+                {'form': form, 'recipes': recipes}
+            )
+        else:
+            return render(request, 'diet_app/search.html', {'form': form})

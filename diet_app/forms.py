@@ -61,3 +61,7 @@ class AddRecipeToMealPlanModelFormV2(forms.ModelForm):
         count = self.mealplan.recipemealplan_set.count()
         if count >= 6:
             raise ValidationError('Meal plan może mieć maksymalnie 6 posiłków')
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100, label='szukaj')
